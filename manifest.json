@@ -4,8 +4,12 @@
     "description": "Helpful functions for WhatIf Basketball",
     "permissions": ["activeTab", "contextMenus", "storage"],
     "browser_action": {
-      "default_popup": "options.html"
+        "default_popup": "options.html"
     },
+    "content_scripts": [{
+        "matches": ["https://www.whatifsports.com/*"],
+        "css": ["main.css"]
+    }],
     "background": {
     	"scripts": ["background.js"],
     	"persistent": false
