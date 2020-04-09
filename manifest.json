@@ -2,7 +2,10 @@
     "name": "WhatIf Basketball Extension",
     "version": "1.0",
     "description": "Helpful functions for WhatIf Basketball",
-    "permissions": ["activeTab", "contextMenus"],
+    "permissions": ["activeTab", "contextMenus", "storage"],
+    "browser_action": {
+      "default_popup": "options.html"
+    },
     "background": {
     	"scripts": ["background.js"],
     	"persistent": false

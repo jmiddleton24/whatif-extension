@@ -34,29 +34,36 @@ let statRow;
 if (tblStats) {
     statRow = tblStats.getElementsByClassName('odd');
 }
-if (statRow) {
-    const url = 'playersearch.asp?pg=1&spot=1&eid=396704&pos=6&sal_min=239000&sal_max=99000000&format=2&sb=15&order=2&max=50' +
+
+getValueFromCell = (cellIndex) => {
+    return statRow[0]['cells'][cellIndex].innerHTML;
+};
+
+generateSearchUrl = (eid) => {
+    return `playersearch.asp?pg=1&spot=1&eid=${eid}&pos=6&sal_min=239000&sal_max=99000000&format=2&sb=15&order=2&max=50` +
         Object.keys(SEARCH_PARAMS).map((k, index) => {
-            let criteria = '';
             let ii = index + 1;
             const category = `&${CRITERIA_CATEGORY}${ii}=${SEARCH_PARAMS[k]}`;
-            if (k.includes('EFF')) {
-            	const min = statRow[0]['cells'][CELL_POS[k]].innerHTML;
-            	const max = statRow[0]['cells'][CELL_POS[k]].innerHTML;
-                criteria = setCriteriaValues(min.replace('%', ''), max.replace('%', ''), ii);
-            } else {
-            	let min = statRow[0]['cells'][CELL_POS[k]].innerHTML.replace('%', '');
-            	let max = statRow[0]['cells'][CELL_POS[k]].innerHTML.replace('%', '');
-            	min = Number.parseInt(min);
-            	max = Number.parseInt(max);
-            	// WhatIf stores percentages shot percentages as floats under the hood
-				// we need to capture this by giving a range of 1
-            	min = min > 0 ? min - 1 : min;
-            	max = max < 100 ? max + 1 : max;
-            	criteria = setCriteriaValues(min, max, ii);
+            let min = getValueFromCell(CELL_POS[k]).replace('%', '');
+            let max = getValueFromCell(CELL_POS[k]).replace('%', '');
+            if (!k.includes('EFF')) {
+                min = Number.parseInt(min);
+                max = Number.parseInt(max);
+                // WhatIf stores shot percentages as floats under the hood
+                // we need to capture this by giving a range of 1
+                min = min > 0 ? min - 1 : min;
+                max = max < 100 ? max + 1 : max;
             }
-            return category + criteria;
+            return category + setCriteriaValues(min, max, ii);
         }).join('');
+};
 
-    window.open(url);
+if (statRow) {
+    chrome.storage.local.get({
+        leagueNumber: '000000'
+    }, (items) => {
+        const eid = items.leagueNumber;
+        const url = generateSearchUrl(eid);
+        window.open(url);
+    });
 }

@@ -1,7 +1,13 @@
 setupContextMenu = () => {
 	chrome.contextMenus.create({
 		type: 'normal',
+		id: 'base',
+		title: 'WhatIf Extension'
+	});
+	chrome.contextMenus.create({
+		type: 'normal',
 		id: 'rookie-id',
+		parentId: 'base',
 		title: 'Identify Rookie'
 	});
 
