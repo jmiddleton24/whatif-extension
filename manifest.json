@@ -7,8 +7,8 @@
         "default_popup": "options.html"
     },
     "content_scripts": [{
-        "matches": ["https://www.whatifsports.com/*"],
-        "css": ["main.css"]
+        "matches": ["https://www.whatifsports.com/nba-l/tcenter.asp"],
+        "css": ["team-center.css"]
     }],
     "background": {
     	"scripts": ["background.js"],
