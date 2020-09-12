@@ -40,6 +40,9 @@ getValueFromCell = (cellIndex) => {
 };
 
 generateSearchUrl = (eid) => {
+    if (!eid || !eid.match(/[0-9]+/)) {
+        generateErrorMessage();
+    }
     return `playersearch.asp?pg=1&spot=1&eid=${eid}&pos=6&sal_min=239000&sal_max=99000000&format=2&sb=15&order=2&max=50` +
         Object.keys(SEARCH_PARAMS).map((k, index) => {
             let ii = index + 1;
@@ -56,6 +59,12 @@ generateSearchUrl = (eid) => {
             }
             return category + setCriteriaValues(min, max, ii);
         }).join('');
+};
+
+generateErrorMessage = () => {
+    const errorMessage = 'This extension requires a league number for querying the WhatIf database. '
+     + 'Please click the extension icon to set the number yourself or by pasting a draft center url and clicking save';
+    alert(errorMessage);
 };
 
 if (statRow) {

@@ -1,0 +1,11 @@
+span#user-feedback {
+    display: inline-block;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
