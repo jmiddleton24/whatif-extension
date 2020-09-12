@@ -7,8 +7,11 @@
         "default_popup": "options.html"
     },
     "content_scripts": [{
-        "matches": ["https://www.whatifsports.com/nba-l/tcenter.asp"],
+        "matches": ["*://www.whatifsports.com/nba-l/tcenter.asp"],
         "css": ["team-center.css"]
+    }, {
+        "matches": ["*://www.whatifsports.com/nba-l/playersearch.asp?*format=1*"],
+        "js": ["stat-inject-totals.js"]
     }],
     "background": {
     	"scripts": ["background.js"],
