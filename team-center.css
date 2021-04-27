@@ -1,3 +1,3 @@
-td.text {
+td#notes, td.wis_left {
     white-space: pre;
 }
