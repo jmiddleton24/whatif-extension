@@ -2,16 +2,13 @@
     "name": "WhatIf Basketball Extension",
     "version": "1.0",
     "description": "Helpful functions for WhatIf Basketball",
-    "permissions": ["activeTab", "contextMenus", "storage"],
+    "permissions": ["activeTab", "contextMenus", "storage", "webNavigation", "tabs"],
     "browser_action": {
         "default_popup": "options.html"
     },
     "content_scripts": [{
         "matches": ["*://www.whatifsports.com/nba-l/tcenter.asp"],
         "css": ["team-center.css"]
-    }, {
-        "matches": ["*://www.whatifsports.com/nba-l/playersearch.asp?*format=1*"],
-        "js": ["stat-inject-totals.js"]
     }],
     "background": {
     	"scripts": ["background.js"],
