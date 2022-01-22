@@ -14,7 +14,12 @@ setupContextMenu = () => {
 };
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-	chrome.tabs.executeScript(tab.id, { file: 'fetch-players.js'});
+	chrome.scripting.executeScript({
+		target: {
+			tabId: tab.id
+		},
+		files: ["fetch-players.js"]
+	});
 });
 
 chrome.runtime.onInstalled.addListener(function() {
@@ -32,7 +37,14 @@ chrome.webNavigation.onCompleted.addListener(details => {
 			})
 		}).then(isSearching => {
 			if (isSearching) {
-				chrome.tabs.executeScript(details.tabId, {file: "fetch-players.js"})
+				chrome.scripting.executeScript(
+					{
+						target: {
+							tabId: details.tabId
+						},
+						files: ["fetch-players.js"]
+					}
+				);
 			}
 		});
 	}

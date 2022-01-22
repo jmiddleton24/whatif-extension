@@ -2,8 +2,9 @@
     "name": "WhatIf Basketball Extension",
     "version": "1.0",
     "description": "Helpful functions for WhatIf Basketball",
-    "permissions": ["activeTab", "contextMenus", "storage", "webNavigation", "tabs"],
-    "browser_action": {
+    "permissions": ["activeTab", "contextMenus", "storage", "webNavigation", "tabs", "scripting"],
+    "host_permissions": ["*://www.whatifsports.com/nba-l/*"],
+    "action": {
         "default_popup": "options.html"
     },
     "content_scripts": [{
@@ -11,8 +12,7 @@
         "css": ["team-center.css"]
     }],
     "background": {
-    	"scripts": ["background.js"],
-    	"persistent": false
+    	"service_worker": "background.js"
     },
     "icons": {
       "16": "images/get_started16.png",
@@ -20,5 +20,5 @@
       "48": "images/get_started48.png",
       "128": "images/get_started128.png"
     },
-    "manifest_version": 2
+    "manifest_version": 3
 }
