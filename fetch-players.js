@@ -113,7 +113,11 @@ function parsePlayerData() {
 function extractPlayerFromRowPair(playerStats, playerPositions) {
   let player = {};
   player['name'] = playerStats[1];
+  player['team'] = playerStats[2];
   player['min'] = playerStats[4];
+  player['per'] = playerStats[5];
+  player['mid'] = playerStats[6];
+  player['pnt'] = playerStats[7];
   player['usg'] = playerStats[8];
   player['efg'] = playerStats[11];
   player['oreb'] = playerStats[12];
@@ -157,7 +161,7 @@ function makeCsvFile(playerData) {
     return;
   }
 
-  const headerColumns = ['Name', 'Min', 'Usg', 'eFG', 'OReb', 'DReb', 'Ast', 'Stl', 'Blk', 'TO%', 'Def', 'PG', 'SG', 'SF', 'PF', 'C', 'Salary'];
+  const headerColumns = ['Name', 'Team', 'Per', 'Mid', 'Pnt', 'Min', 'Usg', 'eFG', 'OReb', 'DReb', 'Ast', 'Stl', 'Blk', 'TO%', 'Def', 'PG', 'SG', 'SF', 'PF', 'C', 'Salary'];
   const orderedPlayers = playerData.sort((player1, player2) => player1.name < player2.name ? -1 : 1);
   let csvContent = 'data:text/csv;charset=utf-8,' + addCsvHeaderRow(headerColumns);
   csvContent += orderedPlayers.map(player => playerToCsv(player, headerColumns)).join('\n');
